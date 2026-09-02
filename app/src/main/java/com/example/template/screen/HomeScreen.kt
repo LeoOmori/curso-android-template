@@ -29,12 +29,12 @@ import com.example.template.model.Post
 import com.example.template.ui.theme.AndroidTemplateTheme
 
 /**
- * Tela de lista. Observa o [HomeViewModel] e desenha a UI conforme o estado.
+ * Única tela do template. Observa o [HomeViewModel] e desenha a UI
+ * conforme o estado (carregando / erro / lista).
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
-    onPostClick: (Int) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = viewModel()
 ) {
@@ -53,7 +53,6 @@ fun HomeScreen(
             )
             is HomeUiState.Success -> PostList(
                 posts = state.posts,
-                onPostClick = onPostClick,
                 contentPadding = innerPadding
             )
         }
@@ -88,7 +87,6 @@ private fun ErrorState(
 @Composable
 private fun PostList(
     posts: List<Post>,
-    onPostClick: (Int) -> Unit,
     contentPadding: PaddingValues
 ) {
     LazyColumn(
@@ -102,14 +100,14 @@ private fun PostList(
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         items(posts, key = { it.id }) { post ->
-            PostCard(post = post, onClick = { onPostClick(post.id) })
+            PostCard(post = post)
         }
     }
 }
 
 @Composable
-private fun PostCard(post: Post, onClick: () -> Unit) {
-    Card(onClick = onClick, modifier = Modifier.fillMaxSize()) {
+private fun PostCard(post: Post) {
+    Card(modifier = Modifier.fillMaxSize()) {
         Column(Modifier.padding(16.dp)) {
             Text(
                 text = post.title,
@@ -133,8 +131,7 @@ private fun PostCard(post: Post, onClick: () -> Unit) {
 private fun PostCardPreview() {
     AndroidTemplateTheme {
         PostCard(
-            post = Post(1, 1, "Título de exemplo", "Corpo do post de exemplo para o preview."),
-            onClick = {}
+            post = Post(1, 1, "Título de exemplo", "Corpo do post de exemplo para o preview.")
         )
     }
 }

@@ -7,12 +7,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
-import com.example.template.screen.DetailScreen
 import com.example.template.screen.HomeScreen
 import com.example.template.ui.theme.AndroidTemplateTheme
 
@@ -34,12 +31,9 @@ fun App() {
     }
 }
 
-/** Nomes das rotas e helpers para montá-las. */
+/** Nomes das rotas do app. Adicione novas telas aqui. */
 object AppRoutes {
     const val HOME = "home"
-    const val DETAIL = "detail/{postId}"
-
-    fun detail(postId: Int) = "detail/$postId"
 }
 
 @Composable
@@ -51,23 +45,14 @@ fun AppNavHost(
         startDestination = AppRoutes.HOME
     ) {
         composable(AppRoutes.HOME) {
-            HomeScreen(
-                onPostClick = { postId ->
-                    navController.navigate(AppRoutes.detail(postId))
-                }
-            )
+            HomeScreen()
         }
 
-        composable(
-            route = AppRoutes.DETAIL,
-            arguments = listOf(navArgument("postId") { type = NavType.IntType })
-        ) { backStackEntry ->
-            val postId = backStackEntry.arguments?.getInt("postId") ?: 0
-            DetailScreen(
-                postId = postId,
-                onBack = { navController.popBackStack() }
-            )
-        }
+        // Para adicionar uma tela nova:
+        // 1. crie o Composable dela em screen/
+        // 2. adicione a rota em AppRoutes
+        // 3. registre aqui com composable("...") { SuaTela(...) }
+        // 4. navegue com navController.navigate("...")
     }
 }
 

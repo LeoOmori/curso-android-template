@@ -6,7 +6,7 @@ Android Studio, deixar o Gradle sincronizar e rodar.
 ## O que já vem pronto
 
 - **Jetpack Compose** + **Material 3** (BOM controlando as versões)
-- **Navigation Compose** com duas telas de exemplo (lista → detalhe)
+- **Navigation Compose** já configurado (NavHost com uma tela; é só adicionar as próximas)
 - **Retrofit** + **Gson** + **OkHttp logging interceptor**
 - **ViewModel** + **StateFlow** + `collectAsStateWithLifecycle`
 - **Coroutines**
@@ -28,10 +28,8 @@ app/src/main/java/com/example/template/
 ├── repository/
 │   └── PostRepository.kt    # ponte entre a UI e a API
 ├── screen/
-│   ├── HomeScreen.kt        # lista de posts
-│   ├── HomeViewModel.kt     # estado da tela de lista
-│   ├── DetailScreen.kt      # detalhe de um post
-│   └── DetailViewModel.kt   # estado da tela de detalhe
+│   ├── HomeScreen.kt        # única tela: lista de posts
+│   └── HomeViewModel.kt     # estado da tela (Loading / Success / Error)
 └── ui/theme/                # cores, tipografia e tema do app
 ```
 
@@ -48,7 +46,8 @@ gratuita para testes.
 1. Troque `BASE_URL` em `helper/RetrofitInstance.kt`.
 2. Ajuste os endpoints em `helper/ApiService.kt`.
 3. Troque o modelo em `model/Post.kt` pelos campos do seu JSON.
-4. Renomeie/duplique as telas em `screen/` conforme a sua necessidade.
+4. Adicione novas telas em `screen/` e registre no `AppNavHost` (há um
+   passo a passo comentado dentro do `MainActivity.kt`).
 5. (Opcional) troque o `namespace`/`applicationId` em `app/build.gradle.kts`
    e o pacote `com.example.template`.
 

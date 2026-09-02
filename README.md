@@ -1,6 +1,6 @@
 # Android Template
 
-Projeto base para o curso. Já vem com tudo configurado — é só abrir no
+Projeto base para o curso. Já vem com tudo configurado, é só abrir no
 Android Studio, deixar o Gradle sincronizar e rodar.
 
 ## O que já vem pronto
@@ -47,3 +47,4 @@ app/src/main/java/com/example/template/
 ./gradlew installDebug         # instala no dispositivo/emulador conectado
 ./gradlew test                 # testes unitários
 ```
+# curso-android-template

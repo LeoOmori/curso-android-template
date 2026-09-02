@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+   Regras de extração de dados. Veja:
+   https://developer.android.com/about/versions/12/backup-restore#xml-changes
+-->
+<data-extraction-rules>
+    <cloud-backup>
+    </cloud-backup>
+</data-extraction-rules>

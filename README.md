@@ -6,50 +6,39 @@ Android Studio, deixar o Gradle sincronizar e rodar.
 ## O que já vem pronto
 
 - **Jetpack Compose** + **Material 3** (BOM controlando as versões)
-- **Navigation Compose** já configurado (NavHost com uma tela; é só adicionar as próximas)
-- **Retrofit** + **Gson** + **OkHttp logging interceptor**
-- **ViewModel** + **StateFlow** + `collectAsStateWithLifecycle`
-- **Coroutines**
-- **Coil** para carregar imagens da internet
-- Ícones estendidos do Material (`material-icons-extended`)
+- **Navigation Compose** já configurado (NavHost com uma tela; adicione as próximas)
+- **Retrofit** + **Gson** + **OkHttp logging interceptor** — só as dependências,
+  sem código ainda
+- **Coroutines** e **Coil** (carregar imagens da internet) — dependências prontas
 - Permissão de `INTERNET` já declarada no `AndroidManifest.xml`
 - Version catalog (`gradle/libs.versions.toml`) com todas as dependências
+- Paleta de cores do app de quiz em `ui/theme/Color.kt` (fundo escuro, dourado
+  de destaque e as cores das casas de Hogwarts), já ligada ao `MaterialTheme`
+- Imagem de exemplo em `res/drawable/image.png`
 
 ## Estrutura
 
 ```
 app/src/main/java/com/example/template/
 ├── MainActivity.kt          # Activity única + NavHost (rotas do app)
-├── helper/
-│   ├── ApiService.kt        # endpoints da API (anotações do Retrofit)
-│   └── RetrofitInstance.kt  # instância única do Retrofit (singleton)
-├── model/
-│   └── Post.kt              # modelo de dados (desserializado pelo Gson)
-├── repository/
-│   └── PostRepository.kt    # ponte entre a UI e a API
 ├── screen/
-│   ├── HomeScreen.kt        # única tela: lista de posts
-│   └── HomeViewModel.kt     # estado da tela (Loading / Success / Error)
-└── ui/theme/                # cores, tipografia e tema do app
+│   └── HomeScreen.kt        # a única tela; comece por aqui
+└── ui/theme/
+    ├── Color.kt             # paleta do app de quiz + cores das casas
+    ├── Theme.kt             # MaterialTheme já usando essa paleta
+    └── Type.kt              # tipografia
 ```
 
-## API de exemplo
+## Como evoluir a partir daqui
 
-[JSONPlaceholder](https://jsonplaceholder.typicode.com/) — API pública e
-gratuita para testes.
-
-- `GET /posts` → lista de posts
-- `GET /posts/{id}` → um post
-
-## Como adaptar para o seu app
-
-1. Troque `BASE_URL` em `helper/RetrofitInstance.kt`.
-2. Ajuste os endpoints em `helper/ApiService.kt`.
-3. Troque o modelo em `model/Post.kt` pelos campos do seu JSON.
-4. Adicione novas telas em `screen/` e registre no `AppNavHost` (há um
-   passo a passo comentado dentro do `MainActivity.kt`).
-5. (Opcional) troque o `namespace`/`applicationId` em `app/build.gradle.kts`
-   e o pacote `com.example.template`.
+- **Nova tela:** crie o Composable em `screen/`, adicione a rota em
+  `AppRoutes` e registre no `AppNavHost` (passo a passo comentado no
+  `MainActivity.kt`).
+- **Chamar uma API:** as dependências do Retrofit já estão no
+  `app/build.gradle.kts`. Crie um `interface ApiService` com os endpoints e
+  um objeto que monta o `Retrofit` (`baseUrl`, `GsonConverterFactory`).
+- **Trocar `namespace`/`applicationId`:** em `app/build.gradle.kts` e o
+  pacote `com.example.template`.
 
 ## Rodar pela linha de comando
 

@@ -48,3 +48,4 @@ app/src/main/java/com/example/template/
 ./gradlew test                 # testes unitários
 ```
 # curso-android-template
+# curso-android-aula1
